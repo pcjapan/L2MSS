@@ -30,7 +30,7 @@ One_factor =~ Intend1 + Intend2 + Intend3 + Intend4 + Intend5 + Intend6 + Intend
 # Fit model to data
 fit <- cfa(Group1, data_CFA, std.lv = TRUE)
 summary(fit, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
-semPaths(fit)
+semCors(fit)
 
 Group2 <- ' Group2_1 =~ Comm1 + Comm2 + Comm3 + Comm4 + Culture1 + Culture2 + Culture3 + Culture4 '
 fit2 <- cfa(Group2, data_CFA, std.lv = TRUE)
@@ -41,3 +41,15 @@ Group2a <- ' Comm    =~ Comm1 + Comm2 + Comm3 + Comm4
 fit2a <- cfa(Group2a, data_CFA, std.lv = TRUE)
 summary(fit2a, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
 anova(fit2, fit2a)
+
+oughtTo <- ' oneFactor =~ Ought1 + Ought2 + Ought3 + Ought4 + Ought5 + Ought6 + Ought7 + Ought8 + Ought9 + Ought10 
+                          + Prom1 + Prom2 + Prom3 + Prom4 + Prom5 + Prom6 + Prom7 + Prom8 + Prom9 + Prom10 + Prom11 + Prom12 + Prom13 + Prom14
+                          + Prev1 + Prev2 + Prev3 + Prev4 + Prev5 + Prev6 + Prev7 + Prev8 '
+oughtTo1 <- cfa(oughtTo, data_CFA, std.lv = TRUE)
+summary(oughtTo1, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+
+oughtTob <- ' Factor1 =~ Ought1 + Ought2 + Ought3 + Ought4 + Ought5 + Ought6 + Ought7 + Ought8 + Ought9 + Ought10 
+             Factor2 =~ Prom1 + Prom2 + Prom3 + Prom4 + Prom5 + Prom6 + Prom7 + Prom8 + Prom9 + Prom10 + Prom11 + Prom12 + Prom13 + Prom14
+             Factor3 =~ Prev1 + Prev2 + Prev3 + Prev4 + Prev5 + Prev6 + Prev7 + Prev8 '
+oughtTo2 <- cfa(oughtTob, data_CFA, std.lv = TRUE)
+summary(oughtTo2, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
