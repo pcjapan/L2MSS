@@ -1,14 +1,16 @@
-set.seed(123) # Set seed for reproducibility of analysis
-
-# Read in data
-my_data <- read.csv("data.csv", header = TRUE, sep = ",")
-
 # Install required packages if not already installed
 install.packages("psych")  # For EFA
 install.packages("lavaan") # For CFA
 
-# load EFA package
+# load packages
 library(psych)
+library(lavaan)
+
+# Set seed for reproducibility of analysis
+set.seed(123) 
+
+# Read in data
+my_data <- read.csv("data.csv", header = TRUE, sep = ",")
 
 # Split dataset for EFA and CFA
 N <- nrow(my_data)
@@ -22,17 +24,18 @@ data_CFA <- my_data[indices_CFA, ]
 
 # Set up groupings of variables for EFA
 group5 <- c(24:33,45:66)
-efa_results <- fa(data_EFA[, group5], nfactors = 2, rotate = "geominT")
-efa_results <- fa.sort(efa_results)
-print(efa_results)
+
+# Run EFA
+efa5 <- fa(data_EFA[, group5], nfactors = 2, rotate = "geominT")
+efa5 <- fa.sort(efa5)
+
+print(efa5)
 
 biplot.psych(efa_results)
 fa.plot(efa_results)
 fa.diagram(efa_results)
 fa.parallel(data_EFA[, group5])
 
-# load CFA package
-library(lavaan)
 
 ## Define CFA models ##
 
@@ -125,3 +128,7 @@ av6 <- anova(fit6.1, fit6.2)
 # Print results
 summary(fit1.1, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
 summary(fit1.2, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+print(av1)
+
+summary(fit5.1, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+summary(fit5.2, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
